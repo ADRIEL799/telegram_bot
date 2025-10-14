@@ -13,22 +13,22 @@ bot = telebot.TeleBot(TOKEN)
 # -------------------------------
 clothes = {
     "shirt1": {
-        "name": "jacket",
+        "name": "Jacket",
         "price": "1700",
         "available": True,
-        "photo": "https://i.imgur.com/2N902d3.png"
+        "photo_path": "clothes/warm_hoodie.jpg"
     },
     "hoodie1": {
         "name": "Warm Hoodie",
         "price": "1500",
         "available": False,
-        "photo": "https://i.imgur.com/4tmhLsp.png"
+        "photo_path": "clothes/warm_hoodie2.jpg"
     },
     "jeans1": {
         "name": "Slim Fit Jeans",
         "price": "2000",
         "available": True,
-        "photo": "https://i.imgur.com/0PWGZ5N.png"
+        "photo_path": "clothes/slim_jeans.jpg"
     }
 }
 
