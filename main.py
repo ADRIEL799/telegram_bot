@@ -16,7 +16,7 @@ clothes = {
         "name": "Jacket",
         "price": "1700",
         "available": True,
-        "photo_path": "clothes/warm_hoodie.jpg"
+        "photo_path": "photo_3_2025-07-15_16-13-20.jpg"
     },
     "hoodie1": {
         "name": "Warm Hoodie",
