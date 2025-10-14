@@ -1,39 +1,91 @@
 import telebot
 from telebot import types
+from flask import Flask
+import threading
+import os
 
-# Replace with your bot token
-BOT_TOKEN = "8195063787:AAHvQ7JCUMH3FmSZQxrw4Qu6DDoPbIgNaiA"
+# Replace this with your actual bot token
+TOKEN = os.environ.get("TELEGRAM_TOKEN")
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# Example clothes database
+# -------------------------------
+# Example clothes "database"
+# -------------------------------
 clothes = {
-    "shirt1": {"price": "$20", "available": True, "photo": "https://example.com/shirt.jpg"},
-    "hoodie1": {"price": "$35", "available": False, "photo": "https://example.com/hoodie.jpg"},
+    "shirt1": {
+        "name": "Casual Blue Shirt",
+        "price": "$20",
+        "available": True,
+        "photo": "https://i.imgur.com/xNp6w1u.jpg"
+    },
+    "hoodie1": {
+        "name": "Warm Hoodie",
+        "price": "$35",
+        "available": False,
+        "photo": "https://i.imgur.com/LwCYmcM.jpeg"
+    },
+    "jeans1": {
+        "name": "Slim Fit Jeans",
+        "price": "$40",
+        "available": True,
+        "photo": "https://i.imgur.com/hqA2nG7.jpeg"
+    }
 }
 
-# Command to show all clothes
+# -------------------------------
+# Telegram Bot Handlers
+# -------------------------------
 @bot.message_handler(commands=["start", "shop"])
 def show_shop(message):
-    for item_name, item in clothes.items():
+    bot.send_message(message.chat.id, "🛍️ Welcome to the Clothing Shop!\nBrowse the available items below:")
+    for item_key, item in clothes.items():
         markup = types.InlineKeyboardMarkup()
         markup.add(
-            types.InlineKeyboardButton("💰 Check Price", callback_data=f"price_{item_name}"),
-            types.InlineKeyboardButton("📦 Check Availability", callback_data=f"avail_{item_name}")
+            types.InlineKeyboardButton("💰 Check Price", callback_data=f"price_{item_key}"),
+            types.InlineKeyboardButton("📦 Check Availability", callback_data=f"avail_{item_key}")
         )
-        bot.send_photo(message.chat.id, item["photo"], caption=f"👕 {item_name.capitalize()}", reply_markup=markup)
+        caption = f"👕 *{item['name']}*"
+        bot.send_photo(message.chat.id, item["photo"], caption=caption, parse_mode="Markdown", reply_markup=markup)
 
-# Handle button presses
 @bot.callback_query_handler(func=lambda call: True)
 def callback_handler(call):
-    action, item_name = call.data.split("_", 1)
-    item = clothes[item_name]
+    try:
+        action, item_key = call.data.split("_", 1)
+        item = clothes.get(item_key)
 
-    if action == "price":
-        bot.answer_callback_query(call.id, f"The price is {item['price']}")
-    elif action == "avail":
-        available_text = "✅ Available" if item["available"] else "❌ Out of stock"
-        bot.answer_callback_query(call.id, available_text)
+        if not item:
+            bot.answer_callback_query(call.id, "❌ Item not found!")
+            return
 
-# Run the bot
-print("🤖 Bot is running...")
-bot.infinity_polling()
+        if action == "price":
+            bot.answer_callback_query(call.id, f"The price of {item['name']} is {item['price']}")
+        elif action == "avail":
+            status = "✅ Available" if item["available"] else "❌ Out of stock"
+            bot.answer_callback_query(call.id, f"{item['name']} is {status}")
+    except Exception as e:
+        print("Callback error:", e)
+        bot.answer_callback_query(call.id, "⚠️ Something went wrong!")
+
+# -------------------------------
+# Flask web server (Render fix)
+# -------------------------------
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "🤖 Telegram Clothes Bot is running!"
+
+def run_web():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
+
+# -------------------------------
+# Start both bot & webserver
+# -------------------------------
+def run_bot():
+    print("🤖 Bot is online and polling for updates...")
+    bot.infinity_polling()
+
+if __name__ == "__main__":
+    threading.Thread(target=run_web).start()
+    run_bot()
