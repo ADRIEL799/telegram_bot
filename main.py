@@ -13,10 +13,10 @@ bot = telebot.TeleBot(TOKEN)
 # -------------------------------
 clothes = {
     "shirt1": {
-        "name": "Casual Blue Shirt",
-        "price": "$20",
+        "name": "jacket",
+        "price": "1500",
         "available": True,
-        "photo": "https://i.imgur.com/xNp6w1u.jpg"
+        "photo": "https://i.imgur.com/4tmhLsp.jpeg"
     },
     "hoodie1": {
         "name": "Warm Hoodie",
