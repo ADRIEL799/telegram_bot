@@ -172,7 +172,7 @@ def callback_handler(call):
         if action == "price":
             bot.answer_callback_query(call.id, f"The price of {item['name']} is {item['price']} ETB")
         elif action == "avail":
-            status = "✅ Available" if item["available"] else "❌ Out of stock"
+            status = "✅ Available, 6 ኪሎ ከሊደር ሺፕ ኢንስቲትዩት ዝቅብሎ" if item["available"] else "❌ Out of stock"
             bot.answer_callback_query(call.id, f"{item['name']} is {status}")
 
     except Exception as e:
