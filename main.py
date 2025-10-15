@@ -23,7 +23,7 @@ clothes = {
     "2": {
         "name": "ጋውን",
         "price": "2200",
-        "available": False
+        "available": False,
         "photo_path": "images/(2).jpg"
     },
     "3": {
