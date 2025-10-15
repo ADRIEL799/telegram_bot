@@ -18,109 +18,109 @@ clothes = {
         "name": "ቀሚስ",
         "price": "1800",
         "available": True,
-        "photo_path": "images/1.jpg"
+        "photo_path": "images/(1).jpg"
     },
     "2": {
         "name": "ጋውን",
         "price": "2200",
         "available": False,
-        "photo_path": "images/2.jpg"
+        "photo_path": "images/(2).jpg"
     },
     "3": {
         "name": "ጋውን",
         "price": "1800",
         "available": True,
-        "photo_path": "images/3.jpg"
+        "photo_path": "images/(3).jpg"
     },
     "4": {
         "name": "ጋውን",
         "price": "2000",
         "available": False,
-        "photo_path": "images/4.jpg"
+        "photo_path": "images/(4).jpg"
     },
     "5": {
         "name": "ጋውን",
         "price": "2000",
         "available": False,
-        "photo_path": "images/5.jpg"
+        "photo_path": "images/(5).jpg"
     },
     "6": {
         "name": "ቀሚስ",
         "price": "1700",
         "available": True,
-        "photo_path": "images/6.jpg"
+        "photo_path": "images/(6).jpg"
     },
     "7": {
         "name": "ቀሚስ",
         "price": "1800",
         "available": True,
-        "photo_path": "images/7.jpg"
+        "photo_path": "images/(7).jpg"
     },
     "8": {
         "name": "ቀሚስ",
         "price": "2200",
         "available": True,
-        "photo_path": "images/8.jpg"
+        "photo_path": "images/(8).jpg"
     },
     "9": {
         "name": "ሻርፕ",
         "price": "1500",
         "available": True,
-        "photo_path": "images/9.jpg"
+        "photo_path": "images/(9).jpg"
     },
     "10": {
         "name": "ሻርፕ",
         "price": "1500",
         "available": True,
-        "photo_path": "images/10.jpg"
+        "photo_path": "images/(10).jpg"
     },
     "11": {
         "name": "ሻርፕ",
         "price": "1500",
         "available": False,
-        "photo_path": "images/11.jpg"
+        "photo_path": "images/(11).jpg"
     },
     "12": {
         "name": "ሻርፕ",
         "price": "1500",
         "available": False,
-        "photo_path": "images/12.jpg"
+        "photo_path": "images/(12).jpg"
     },
     "13": {
         "name": "ሻርፕ",
         "price": "1500",
         "available": False,
-        "photo_path": "images/13.jpg"
+        "photo_path": "images/(13).jpg"
     },
     "14": {
         "name": "ሻርፕ",
         "price": "1500",
         "available": True,
-        "photo_path": "images/14.jpg"
+        "photo_path": "images/(14).jpg"
     },
     "15": {
         "name": "ጃኬት",
         "price": "2000",
         "available": False,
-        "photo_path": "images/15.jpg"
+        "photo_path": "images/(15).jpg"
     },
     "16": {
         "name": "ጋውን",
         "price": "2000",
         "available": True,
-        "photo_path": "images/16.jpg"
+        "photo_path": "images/(16).jpg"
     },
     "17": {
         "name": "ካፖርት",
         "price": "2000",
         "available": True,
-        "photo_path": "images/17.jpg"
+        "photo_path": "images/(17).jpg"
     },
     "18": {
         "name": "ቀሚስ",
         "price": "2200",
         "available": True,
-        "photo_path": "images/18.jpg"
+        "photo_path": "images/(18).jpg"
     }
 }
 
