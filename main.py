@@ -4,12 +4,14 @@ from flask import Flask
 import threading
 import os
 
-# Replace this with your actual bot token
-TOKEN = os.environ.get("TELEGRAM_TOKEN")
+# -------------------------------
+# Telegram Bot Setup
+# -------------------------------
+TOKEN = os.environ.get("TELEGRAM_TOKEN")  # Use Render Secret
 bot = telebot.TeleBot(TOKEN)
 
 # -------------------------------
-# Example clothes "database"
+# Local image-based clothes database
 # -------------------------------
 clothes = {
     "shirt1": {
@@ -32,15 +34,35 @@ clothes = {
 @bot.message_handler(commands=["start", "shop"])
 def show_shop(message):
     bot.send_message(message.chat.id, "🛍️ Welcome to the Clothing Shop!\nBrowse the available items below:")
+
     for item_key, item in clothes.items():
         markup = types.InlineKeyboardMarkup()
         markup.add(
             types.InlineKeyboardButton("💰 Check Price", callback_data=f"price_{item_key}"),
             types.InlineKeyboardButton("📦 Check Availability", callback_data=f"avail_{item_key}")
         )
-        caption = f"👕 *{item['name']}*"
-        bot.send_photo(message.chat.id, item["photo"], caption=caption, parse_mode="Markdown", reply_markup=markup)
 
+        caption = f"👕 *{item['name']}*"
+
+        try:
+            # ✅ Open local image each time (Render-safe)
+            with open(item["photo_path"], "rb") as photo_file:
+                bot.send_photo(
+                    message.chat.id,
+                    photo_file,
+                    caption=caption,
+                    parse_mode="Markdown",
+                    reply_markup=markup
+                )
+        except FileNotFoundError:
+            bot.send_message(
+                message.chat.id,
+                f"⚠️ Image not found for {item['name']} (path: {item['photo_path']})"
+            )
+
+# -------------------------------
+# Handle Button Clicks
+# -------------------------------
 @bot.callback_query_handler(func=lambda call: True)
 def callback_handler(call):
     try:
@@ -52,16 +74,17 @@ def callback_handler(call):
             return
 
         if action == "price":
-            bot.answer_callback_query(call.id, f"The price of {item['name']} is {item['price']}")
+            bot.answer_callback_query(call.id, f"The price of {item['name']} is {item['price']} ETB")
         elif action == "avail":
             status = "✅ Available" if item["available"] else "❌ Out of stock"
             bot.answer_callback_query(call.id, f"{item['name']} is {status}")
+
     except Exception as e:
         print("Callback error:", e)
         bot.answer_callback_query(call.id, "⚠️ Something went wrong!")
 
 # -------------------------------
-# Flask web server (Render fix)
+# Flask web server (for Render)
 # -------------------------------
 app = Flask(__name__)
 
@@ -74,7 +97,7 @@ def run_web():
     app.run(host="0.0.0.0", port=port)
 
 # -------------------------------
-# Start both bot & webserver
+# Run bot and webserver together
 # -------------------------------
 def run_bot():
     print("🤖 Bot is online and polling for updates...")
