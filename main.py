@@ -16,19 +16,13 @@ clothes = {
         "name": "Jacket",
         "price": "1700",
         "available": True,
-        "photo_path": "photo_3_2025-07-15_16-13-20.jpg"
+        "photo_path": "images/photo_3_2025-07-15_16-13-20.jpg"
     },
     "hoodie1": {
         "name": "Warm Hoodie",
         "price": "1500",
         "available": False,
-        "photo_path": "photo_5_2025-07-15_16-13-20.jpg"
-    },
-    "jeans1": {
-        "name": "Slim Fit Jeans",
-        "price": "2000",
-        "available": True,
-        "photo_path": "clothes/slim_jeans.jpg"
+        "photo_path": "images/photo_5_2025-07-15_16-13-20.jpg"
     }
 }
 
